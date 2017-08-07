@@ -1,4 +1,4 @@
-#-*- coding:gbk -*-
+# -*- coding:utf-8 -*-
 import codecs
 from os import path
 
@@ -7,20 +7,20 @@ from scipy.misc import imread
 from wordcloud import WordCloud
 import pandas as pd
 
-# Õâ¸öº¯ÊıÔİÊ±Ã»ÓĞÓÃµ½
+# è¿™ä¸ªå‡½æ•°æš‚æ—¶æ²¡æœ‰ç”¨åˆ°
 def get_all_keywords(file_name):
-    word_lists = []  # ¹Ø¼ü´ÊÁĞ±í
+    word_lists = []  # å…³é”®è¯åˆ—è¡¨
     jieba.enable_parallel(8)
     with codecs.open(file_name, 'r', encoding='utf-8') as f:
-        Lists = f.readlines()  # ÎÄ±¾ÁĞ±í
+        Lists = f.readlines()  # æ–‡æœ¬åˆ—è¡¨
         for List in Lists:
             cut_list = list(jieba.cut(List))
             for word in cut_list:
                 word_lists.append(word)
-    word_lists_set = set(word_lists)  # È¥³ıÖØ¸´ÔªËØ
+    word_lists_set = set(word_lists)  # å»é™¤é‡å¤å…ƒç´ 
     word_lists_set = list(word_lists_set)
     length = len(word_lists_set)
-    print u"¹²ÓĞ%d¸ö¹Ø¼ü´Ê" % length
+    print u"å…±æœ‰%dä¸ªå…³é”®è¯" % length
     information = pd.read_excel('/Users/huazi/Desktop/zhanlang2.xlsx')
     world_number_list = []
     word_copy=[]
@@ -35,14 +35,14 @@ def get_all_keywords(file_name):
     information.to_excel('sun_2.xlsx')
 
 
-# »æÖÆ´ÊÔÆ
+# ç»˜åˆ¶è¯äº‘
 def save_jieba_result():
-    # ÉèÖÃ¶àÏß³ÌÇĞ¸î
+    # è®¾ç½®å¤šçº¿ç¨‹åˆ‡å‰²
     jieba.enable_parallel(4)
     dirs = path.join(path.dirname(__file__), '../pjl_comment.txt')
     with codecs.open(dirs, encoding='utf-8') as f:
         comment_text = f.read()
-    cut_text = " ".join(jieba.cut(comment_text))  # ½«jieba·Ö´ÊµÃµ½µÄ¹Ø¼ü´ÊÓÃ¿Õ¸ñÁ¬½Ó³ÉÎª×Ö·û´®
+    cut_text = " ".join(jieba.cut(comment_text))  # å°†jiebaåˆ†è¯å¾—åˆ°çš„å…³é”®è¯ç”¨ç©ºæ ¼è¿æ¥æˆä¸ºå­—ç¬¦ä¸²
     with codecs.open('pjl_jieba.txt', 'a', encoding='utf-8') as f:
         f.write(cut_text)
 
@@ -52,13 +52,13 @@ def draw_wordcloud2():
     with codecs.open(dirs, encoding='utf-8') as f:
         comment_text = f.read()
 
-    color_mask = imread("template.png")  # ¶ÁÈ¡±³¾°Í¼Æ¬
+    color_mask = imread("template.png")  # è¯»å–èƒŒæ™¯å›¾ç‰‡
 
-    stopwords = [u'¾ÍÊÇ', u'µçÓ°', u'ÄãÃÇ', u'ÕâÃ´', u'²»¹ı', u'µ«ÊÇ', u'Ê²Ã´', u'Ã»ÓĞ', u'Õâ¸ö', u'ÄÇ¸ö', u'´ó¼Ò', u'±È½Ï', u'¿´µ½', u'ÕæÊÇ',
-                 u'³ıÁË', u'Ê±ºò', u'ÒÑ¾­', u'¿ÉÒÔ']
+    stopwords = [u'å°±æ˜¯', u'ç”µå½±', u'ä½ ä»¬', u'è¿™ä¹ˆ', u'ä¸è¿‡', u'ä½†æ˜¯', u'ä»€ä¹ˆ', u'æ²¡æœ‰', u'è¿™ä¸ª', u'é‚£ä¸ª', u'å¤§å®¶', u'æ¯”è¾ƒ', u'çœ‹åˆ°', u'çœŸæ˜¯',
+                 u'é™¤äº†', u'æ—¶å€™', u'å·²ç»', u'å¯ä»¥']
     cloud = WordCloud(font_path="/Users/huazi/Desktop/simsunttc/simsun.ttc", background_color='white',
                       max_words=2000, max_font_size=200, min_font_size=4, mask=color_mask, stopwords=stopwords)
-    word_cloud = cloud.generate(comment_text)  # ²úÉú´ÊÔÆ
+    word_cloud = cloud.generate(comment_text)  # äº§ç”Ÿè¯äº‘
     word_cloud.to_file("pjl_cloud.jpg")
 
 
