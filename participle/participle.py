@@ -52,7 +52,7 @@ def draw_wordcloud2():
     with codecs.open(dirs, encoding='utf-8') as f:
         comment_text = f.read()
 
-    color_mask = imread("/Users/huazi/Desktop/music.jpg")  # 读取背景图片
+    color_mask = imread("template.png")  # 读取背景图片
 
     stopwords = [u'就是', u'电影', u'你们', u'这么', u'不过', u'但是', u'什么', u'没有', u'这个', u'那个', u'大家', u'比较', u'看到', u'真是',
                  u'除了', u'时候', u'已经', u'可以']
