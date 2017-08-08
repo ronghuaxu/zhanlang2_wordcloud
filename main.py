@@ -3,7 +3,7 @@ import random
 import time
 
 from downloader import download as dd
-from parser import movieparser as ps
+from zhanlangparser import movieparser as ps
 import codecs
 
 if __name__ == '__main__':
